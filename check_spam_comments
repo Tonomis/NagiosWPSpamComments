@@ -4,7 +4,7 @@
 IP=192.168.122.111
 DATE=`date -d "4 hours ago" +"%Y-%m-%dT%T"`
 
-COMMENTSNB=`curl http://$IP/wp-json/wp/v2/comments?after=$DATE |jq '.| length'`
+COMMENTSNB=`curl -s http://$IP/wp-json/wp/v2/comments?after=$DATE |jq '.| length'`
 OUTPUT="$COMMENTSNB comment(s) in the last 4 hours"
 if [ $((COMMENTSNB)) -lt 4 ]
 then
