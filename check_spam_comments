@@ -8,15 +8,15 @@ COMMENTSNB=`curl -s http://$IP/wp-json/wp/v2/comments?after=$DATE |jq '.| length
 OUTPUT="$COMMENTSNB comment(s) in the last 4 hours"
 if [ $((COMMENTSNB)) -lt 4 ]
 then
-        echo "OK- $output"
+        echo "OK- $OUTPUT"
         exit 0
 elif [ $((COMMENTSNB)) -lt 10 ]
 then
-        echo "WARNING- $output"
+        echo "WARNING- $OUTPUT"
         exit 1
 elif [ $((COMMENTSNB)) -ge 10 ]
 then
-        echo "CRITICAL- $output"
+        echo "CRITICAL- $OUTPUT"
         exit 2
 else
 echo "UNKNOW- $output"
