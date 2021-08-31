@@ -1,0 +1,24 @@
+#!/bin/bash
+#Nagios plugin to watch number of wordpress comments during last 4 hours
+
+IP=192.168.122.111
+DATE=`date -d "4 hours ago" +"%Y-%m-%dT%T"`
+
+COMMENTSNB=`curl http://$IP/wp-json/wp/v2/comments?after=$DATE |jq '.| length'`
+OUTPUT="$COMMENTSNB comment(s) in the last 4 hours"
+if [ $((COMMENTSNB)) -lt 4 ]
+then
+        echo "OK- $output"
+        exit 0
+elif [ $((COMMENTSNB)) -lt 10 ]
+then
+        echo "WARNING- $output"
+        exit 1
+elif [ $((COMMENTSNB)) -ge 10 ]
+then
+        echo "CRITICAL- $output"
+        exit 2
+else
+echo "UNKNOW- $output"
+exit 3
+fi
